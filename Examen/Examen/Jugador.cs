@@ -8,10 +8,10 @@ namespace Examen
 {
     public class Jugador : Persona
     {
-        int puntosDeAtaque;
-        int puntosDeDefenza;
-        int numeroDePolera;
-        bool lesionado = false;
+        private int puntosDeAtaque;
+        private int puntosDeDefenza;
+        private int numeroDePolera;
+        private bool lesionado = false;
 
         public event EventHandler<LesionEventArgs> OnLesion;
 

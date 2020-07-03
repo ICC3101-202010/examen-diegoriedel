@@ -8,7 +8,7 @@ namespace Examen
 {
     public class Medico : Persona
     {
-        int puntosDeExperiencia;
+        private int puntosDeExperiencia;
         public Medico(string nombre, int edad, string nacion, int sueldo, int puntosDeExperiencia) : base(nombre, edad, nacion, sueldo)
         {
             this.puntosDeExperiencia = puntosDeExperiencia;

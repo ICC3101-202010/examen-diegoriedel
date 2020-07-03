@@ -8,44 +8,22 @@ namespace Examen
 {
     public class Equipo
     {
-        List<Jugador> jugadores = new List<Jugador>();
-        Entrenador entrenador;
-        Medico medico;
-        string nombre;
-        string tipoDeEquipo;
+        private List<Jugador> jugadores = new List<Jugador>();
+        private Entrenador entrenador;
+        private Medico medico;
+        private string nombre;
+        private string tipoDeEquipo;
+        private string nacionalidad;
 
-        public Equipo(List<Jugador> jugadores, Entrenador entrenador, Medico medico, string nombre, string tipoDeEquipo)
+        public Equipo(Entrenador entrenador, Medico medico, string nombre, string tipoDeEquipo, string nacionalidad)
         {
-            if (jugadores.Count != 15)
-            {
-                throw new ArgumentException("Solo se pueden tener equipos con 15 jugadores.");
-            }
-            else
-            {
-                if (tipoDeEquipo == "Nacional")
-                {
-                    foreach (Jugador jugador in jugadores)
-                    {
-                        if (jugadores[0].Nacion != jugador.Nacion)
-                        {
-                            throw new ArgumentException("No se pueden tener jugadores de diferentes naciones en un equipo nacional.");
-                        }
-                    }
-                }
+            entrenador.OnCambioDeJugadores += this.Entrenador_OnCambioDeJugadores;
+            this.entrenador = entrenador;
+            this.medico = medico;
+            this.nombre = nombre;
 
-                foreach (Jugador jugador in jugadores)
-                {
-                    jugador.OnLesion += entrenador.Jugador_OnLesion;
-                }
-
-                entrenador.OnCambioDeJugadores += this.Entrenador_OnCambioDeJugadores;
-
-                this.jugadores = jugadores;
-                this.entrenador = entrenador;
-                this.medico = medico;
-                this.nombre = nombre;
-                this.tipoDeEquipo = tipoDeEquipo;
-            }
+            this.tipoDeEquipo = tipoDeEquipo;
+            this.nacionalidad = nacionalidad;
         }
 
         public List<Jugador> Jugadores { get => jugadores; set => jugadores = value; }
@@ -56,8 +34,48 @@ namespace Examen
 
         private void Entrenador_OnCambioDeJugadores(object sender, CambioDeJugadoresEventArgs e)
         {
-            jugadores.Remove(e.jugadorViejo);
-            jugadores.Add(e.jugadorNuevo);
+            eliminarJugador(e.jugadorViejo);
+            agregarJugador(e.jugadorNuevo);
+        }
+
+        public void agregarJugador(Jugador jugadorNuevo)
+        {
+            if (jugadores.Count < 15)
+            {
+                jugadorNuevo.OnLesion += this.entrenador.Jugador_OnLesion;
+                if (tipoDeEquipo == "Nacional")
+                {
+                    if (jugadores.Count == 0)
+                    {
+                        jugadores.Add(jugadorNuevo);
+                    }
+                    else
+                    {
+                        if (jugadorNuevo.Nacion == this.nacionalidad)
+                        {
+                            jugadores.Add(jugadorNuevo);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No se pueden tener juagdores de diferentes naciones en un equipo nacional");
+                        }
+                    }
+                }
+                else
+                {
+                    jugadores.Add(jugadorNuevo);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No puedes agregar mas de 15 jugadores al equipo");
+            }
+        }
+
+        private void eliminarJugador(Jugador jugador)
+        {
+            jugadores.Remove(jugador);
         }
     }
 }

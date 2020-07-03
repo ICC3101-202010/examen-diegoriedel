@@ -8,9 +8,12 @@ namespace Examen
 {
     public class Entrenador : Persona
     {
-        int puntosDeTactica;
+        private int puntosDeTactica;
+
         public event EventHandler<AvisarCambioDeJugadorEventArgs> OnAvisarCambioDeJugador;
         public event EventHandler<CambioDeJugadoresEventArgs> OnCambioDeJugadores;
+
+
 
         public Entrenador(string nombre, int edad, string nacion, int sueldo, int puntosDeTactica) : base(nombre, edad, nacion, sueldo)
         {

@@ -8,12 +8,12 @@ namespace Examen
 {
     public class Partido
     {
-        Equipo equipo1;
-        Equipo equipo2;
-        int duracion;
-        int golesEquipo1 = 0;
-        int golesEquipo2 = 0;
-        string tipoDePartido;
+        private Equipo equipo1;
+        private Equipo equipo2;
+        private int duracion;
+        private int golesEquipo1 = 0;
+        private int golesEquipo2 = 0;
+        private string tipoDePartido;
 
         public Partido(Equipo equipo1, Equipo equipo2, int duracion, string tipoDePartido)
         {

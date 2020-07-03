@@ -8,10 +8,10 @@ namespace Examen
 {
     public class Persona
     {
-        string nombre;
-        int edad;
-        string nacion;
-        int sueldo;
+        private string nombre;
+        private int edad;
+        private string nacion;
+        private int sueldo;
 
         public Persona(string nombre, int edad, string nacion, int sueldo)
         {
